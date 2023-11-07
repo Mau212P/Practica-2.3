@@ -38,3 +38,25 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
+
+
+  // Eliminar fila seleccionada  
+  function deleteRow(checkbox) {
+    const row = checkbox.parentNode.parentNode;
+    row.remove();
+  }
+
+  // Función para abrir la ventana modal y llenarla con la información del registro
+  function openModal(checkbox) {
+    // Crear la ventana modal
+    const modal = document.createElement('div');
+    modal.classList.add('modal');
+
+    // Crear el contenido de la ventana modal
+    const modalContent = document.createElement('div');
+    modalContent.classList.add('modal-content');
+    modal.appendChild(modalContent);
+
+    // Obtener la fila y los datos del registro
+    const row = checkbox.parentNode.parentNode;
+    const data = Array.from(row.querySelectorAll('td')).map(td => td.textContent);
