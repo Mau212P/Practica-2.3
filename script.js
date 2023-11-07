@@ -95,3 +95,51 @@ document.addEventListener('DOMContentLoaded', function() {
       const artist = document.querySelector('input[name="artist"]').value;
       const year = document.querySelector('input[name="year"]').value;
       const genre = document.querySelector('input[name="genre"]').value;
+
+      // Verificar si la fila existe antes de intentar acceder a sus elementos
+      if (row) {
+        // Actualizar los datos en la fila
+        row.querySelector('td:nth-child(3)').textContent = title;
+        row.querySelector('td:nth-child(4)').textContent = artist;
+        row.querySelector('td:nth-child(5)').textContent = year;
+        row.querySelector('td:nth-child(6)').textContent = genre;
+      }
+
+      // Cerrar la ventana modal
+      document.body.removeChild(modal);
+    });
+  }
+
+  // Agregar listener al formulario para filtrar al enviar
+  searchForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const searchTerm = searchInput.value;
+    filterBySearch(searchTerm);
+  });
+
+  // Agregar listener a selects para filtrar
+  actionSelect.addEventListener('change', e => {
+    const action = e.target.value;
+    if(action === '2') { 
+      // Eliminar fila seleccionada
+      const checked = document.querySelector('input[name="index[]"]:checked');
+      if(checked) {
+        deleteRow(checked);
+      }
+    } 
+  });
+
+  filterSelect.addEventListener('change', e => {
+    const genre = e.target.value;
+    filterByGenre(genre);
+  });
+
+  // Agregar listeners a los botones de editar para abrir la ventana modal
+  Array.from(document.querySelectorAll('button')).forEach(button => {
+    button.addEventListener('click', e => {
+      e.preventDefault();
+      const row = e.target.parentNode.parentNode.parentNode; // Obtener la fila
+      openModal(row); // Pasar la fila al método openModal
+    });
+  });
+});
