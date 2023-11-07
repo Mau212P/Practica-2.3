@@ -60,3 +60,38 @@ document.addEventListener('DOMContentLoaded', function() {
     // Obtener la fila y los datos del registro
     const row = checkbox.parentNode.parentNode;
     const data = Array.from(row.querySelectorAll('td')).map(td => td.textContent);
+    
+ // Llenar la ventana modal con un formulario que contiene los datos del registro
+    modalContent.innerHTML = `
+      <form id="editForm">
+        <label>
+          Título
+          <input type="text" name="title" value="${data[2]}">
+        </label>
+        <label>
+          Artista
+          <input type="text" name="artist" value="${data[3]}">
+        </label>
+        <label>
+          Año
+          <input type="text" name="year" value="${data[4]}">
+        </label>
+        <label>
+          Género
+          <input type="text" name="genre" value="${data[5]}">
+        </label>
+        <button type="submit">Actualizar</button>
+      </form>`;
+
+    // Agregar la ventana modal al body
+    document.body.appendChild(modal);
+
+    // Agregar un listener al formulario para actualizar los datos cuando se envíe
+    document.querySelector('#editForm').addEventListener('submit', e => {
+      e.preventDefault();
+
+      // Obtener los nuevos datos del formulario
+      const title = document.querySelector('input[name="title"]').value;
+      const artist = document.querySelector('input[name="artist"]').value;
+      const year = document.querySelector('input[name="year"]').value;
+      const genre = document.querySelector('input[name="genre"]').value;
